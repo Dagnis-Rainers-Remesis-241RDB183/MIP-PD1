@@ -15,11 +15,13 @@ Spēle beidzas, kad skaitļu virknē paliek viens skaitlis. Uzvar spēlētājs, 
 ### Nepieciešamie moduļi
 
 * raylib 5.5.0.3
+* py_hot_reload 1.0.6
 
 ### Instalēšana
 
 ```
 pip install raylib==5.5.0.3 --break-system-packages
+pip install py_hot_reload==1.0.6
 ```
 
 ### Programmas palaišana
