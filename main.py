@@ -1,13 +1,12 @@
-import asyncio
-
+import py_hot_reload
 from pyray import *
 
 from src.game import Game
 
 
-async def main():
+def main():
     game = Game()
-
+    
     init_window(800, 450, "Hello")
     while not window_should_close():
         begin_drawing()
@@ -15,9 +14,8 @@ async def main():
         draw_text("Hello world", 190, 200, 20, VIOLET)
         draw_text(str(game.value), 190, 240, 20, RED)
         end_drawing()
-        await asyncio.sleep(0)
     close_window()
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    py_hot_reload.run_with_reloader(main)
