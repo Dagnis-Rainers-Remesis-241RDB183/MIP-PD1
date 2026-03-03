@@ -22,12 +22,17 @@ class Computer:
 
         if (): # TODO: imlementēt modeļa 1) scenārija pārbaudi, kā arī child node parsošanu 
             self.UpdateNodeDistances()
-        elif (len(ProcessableNode.ChildNodes==0)):
+        if(len(ProcessableNode.ChildNodes)==0):
             ProcessableNode.ChildNodes = self.CreateNextNodes()
+        if(len(ProcessableNode.ChildNodes)!=0):
+            self.SearchForOptimalActions(ProcessableNode.ChildNodes[0])
+            return
         if(ProcessableNode.ID>=len(ProcessableNode.ParentNode.ChildNodes-1)):
             self.SearchForOptimalActions(self,ProcessableNode.ParentNode)
+            return
         else:
             self.SearchForOptimalActions(self,ProcessableNode.ParentNode.ChildNodes[ProcessableNode.ID+1]) 
+            return
         
         
         
@@ -36,7 +41,7 @@ class Computer:
         pass
 
 
-    def CreateNextNodes():
+    def CreateNextNodes(): # Izveidot nākamos game state nodes
         NextNodes = []
         return NextNodes
 
