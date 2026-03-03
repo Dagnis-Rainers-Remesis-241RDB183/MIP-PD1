@@ -2,11 +2,12 @@ import py_hot_reload
 from pyray import *
 
 from src.game import Game
-
-
+from src.computer import Computer
+from src.game_state import GameState
+from src.node import Node
 def main():
     game = Game()
-    
+   
     init_window(800, 450, "Hello")
     while not window_should_close():
         begin_drawing()
