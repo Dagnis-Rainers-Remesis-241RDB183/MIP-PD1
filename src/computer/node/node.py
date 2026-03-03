@@ -1,4 +1,4 @@
-from ..game_state.game_state import GameState  
+from ..game_state import GameState 
 
 class Node:
     def __init__(self):

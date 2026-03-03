@@ -1,4 +1,4 @@
-from ..node.node import Node  
+from .node import Node  
 
 
 """
@@ -34,6 +34,7 @@ class Computer:
             self.SearchForOptimalActions(self,ProcessableNode.ParentNode.ChildNodes[ProcessableNode.ID+1]) 
             return
         
+
         
         
 
