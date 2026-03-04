@@ -22,10 +22,11 @@ class Computer:
 
         if (): # TODO: imlementēt modeļa 1) scenārija pārbaudi, kā arī child node parsošanu 
             self.UpdateNodeDistances()
+            
         if(len(ProcessableNode.ChildNodes)==0):
             ProcessableNode.ChildNodes = self.CreateNextNodes()
         if(len(ProcessableNode.ChildNodes)!=0):
-            self.SearchForOptimalActions(ProcessableNode.ChildNodes[0])
+            self.SearchForOptimalActions(ProcessableNode.ChildNodes[self.GetBestAction(ProcessableNode.ChildNodes)])
             return
         if(ProcessableNode.ID>=len(ProcessableNode.ParentNode.ChildNodes-1)):
             self.SearchForOptimalActions(self,ProcessableNode.ParentNode)
@@ -35,7 +36,9 @@ class Computer:
             return
         
 
-        
+    def GetBestAction(NextNodes:list): # implementēt heiristisku pārmeklēšanu
+        id
+        return id   
         
 
     def CheckIfEnd(self, CheckableNode:Node):
