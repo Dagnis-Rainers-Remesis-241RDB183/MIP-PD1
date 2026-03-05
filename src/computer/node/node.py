@@ -7,5 +7,4 @@ class Node:
         self.ID:int = None
         self.ChildNodes:list[Node] = []
         self.DistanceFromEnd = float('inf')
-        self.Level:int = 0
         self.Checked:bool = False

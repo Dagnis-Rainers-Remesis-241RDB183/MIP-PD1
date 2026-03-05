@@ -20,27 +20,27 @@ class Computer:
         
         self.RootGameStateNode:Node = None
         self.ComputerP1:bool = True
+        self.MaxLevel:int = 0
 
 
 
-
-    def CreateTree(self,ProcessableNode:Node,maxLevel:int): 
+    def CreateTree(self,ProcessableNode:Node,Level:int): 
         
         if (self.CheckIfEnd()):
-            self.UpdateNodeDistances()
+            self.UpdateNodeDistances(ProcessableNode)
         if(len(ProcessableNode.ChildNodes)==0):
             ProcessableNode.ChildNodes = self.CreateNextNodes() # TODO: implementēt child nodes
-        if(ProcessableNode.Level<maxLevel):
+        if(Level<self.MaxLevel):
             for i in range(len(ProcessableNode.ChildNodes)):
                 if(ProcessableNode.ChildNodes[i].Checked==False):
                     ProcessableNode.ChildNodes[i].Checked==True
-                    self.CreateTree(ProcessableNode.ChildNodes[i])
+                    self.CreateTree(self,ProcessableNode.ChildNodes[i],Level+1)
                     return
         if(ProcessableNode.ID>=len(ProcessableNode.ParentNode.ChildNodes-1)):
-            self.CreateTree(self,ProcessableNode.ParentNode)
+            self.CreateTree(self,ProcessableNode.ParentNode,Level-1)
             return
-        elif(ProcessableNode.Level<maxLevel and ProcessableNode.Level < maxLevel):
-            self.CreateTree(self,ProcessableNode.ParentNode.ChildNodes[ProcessableNode.ID+1]) 
+        elif(Level < self.MaxLevel):
+            self.CreateTree(self,ProcessableNode.ParentNode.ChildNodes[ProcessableNode.ID+1],Level) 
             return
         
             
