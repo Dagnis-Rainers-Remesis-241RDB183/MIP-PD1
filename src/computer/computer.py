@@ -15,20 +15,20 @@ class Computer:
     
     def __init__(self):
         
-        self.RootGameStateNode = None
+        self.RootGameStateNode:Node = None
     
-    def SearchForOptimalActions(self,ProcessableNode:Node): 
+    def SearchForOptimalActions(self,ProcessableNode:Node,maxLevel:int): 
         
 
-        if (): # TODO: imlementēt modeļa 1) scenārija pārbaudi, kā arī child node parsošanu 
+        if (self.CheckIfEnd()): # TODO: imlementēt modeļa 1) scenārija pārbaudi, kā arī child node parsošanu 
             self.UpdateNodeDistances()
-            
+        
         if(len(ProcessableNode.ChildNodes)==0):
             ProcessableNode.ChildNodes = self.CreateNextNodes()
-        if(len(ProcessableNode.ChildNodes)!=0):
+        if(len(ProcessableNode.ChildNodes)!=0 and ProcessableNode.level<maxLevel):
             self.SearchForOptimalActions(ProcessableNode.ChildNodes[self.GetBestAction(ProcessableNode.ChildNodes)])
             return
-        if(ProcessableNode.ID>=len(ProcessableNode.ParentNode.ChildNodes-1)):
+        if(ProcessableNode.ID>=len(ProcessableNode.ParentNode.ChildNodes-1) and ProcessableNode.level<maxLevel):
             self.SearchForOptimalActions(self,ProcessableNode.ParentNode)
             return
         else:
@@ -36,13 +36,15 @@ class Computer:
             return
         
 
-    def GetBestAction(NextNodes:list): # implementēt heiristisku pārmeklēšanu
+    def GetBestAction(NextNodes:list[Node]): # implementēt heiristisku pārmeklēšanu
         id
         return id   
         
 
     def CheckIfEnd(self, CheckableNode:Node):
-        pass
+        if(len(CheckableNode.GameState.NumberRow)==1):
+            return True         
+        
 
 
     def CreateNextNodes(): # Izveidot nākamos game state nodes
@@ -60,8 +62,8 @@ class Computer:
             else:
                 break
 
-    def Act(self):
-        self.SearchForOptimalAction()
+    def Act(self,maxLevel:int):
+        self.SearchForOptimalAction(self.RootGameStateNode,self.RootGameStateNode.level+maxLevel)
 
 
 
