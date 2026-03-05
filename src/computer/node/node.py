@@ -7,4 +7,5 @@ class Node:
         self.ID:int = None
         self.ChildNodes[Node] = []
         self.DistanceFromEnd = float('inf')
-        self.level = 0
+        self.level:int = 0
+        self.score:int = 0

@@ -20,11 +20,10 @@ class Computer:
     def SearchForOptimalActions(self,ProcessableNode:Node,maxLevel:int): 
         
 
-        if (self.CheckIfEnd()): # TODO: imlementēt modeļa 1) scenārija pārbaudi, kā arī child node parsošanu 
+        if (self.CheckIfEnd()):
             self.UpdateNodeDistances()
-        
         if(len(ProcessableNode.ChildNodes)==0):
-            ProcessableNode.ChildNodes = self.CreateNextNodes()
+            ProcessableNode.ChildNodes = self.CreateNextNodes() # TODO: implementēt child nodes
         if(len(ProcessableNode.ChildNodes)!=0 and ProcessableNode.level<maxLevel):
             self.SearchForOptimalActions(ProcessableNode.ChildNodes[self.GetBestAction(ProcessableNode.ChildNodes)])
             return
@@ -36,7 +35,8 @@ class Computer:
             return
         
 
-    def GetBestAction(NextNodes:list[Node]): # implementēt heiristisku pārmeklēšanu
+    def GetBestAction(NextNodes:list[Node]): # implementēt heiristisku pārmeklēšanu, atšķirt datora un pretinieka gājienus
+        # Izvērtē cik tālu ir end, cik liela ir punktu atšķirība pēc gājiena
         id
         return id   
         
@@ -51,7 +51,7 @@ class Computer:
         NextNodes = []
         return NextNodes
 
-    def UpdateNodeDistances(self,end_node:Node):
+    def UpdateNodeDistances(self,end_node:Node): # Iespējams jāsavieno ar GetBestAction
         
         CurrentNode = end_node
        
