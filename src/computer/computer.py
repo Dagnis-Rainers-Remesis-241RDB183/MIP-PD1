@@ -9,6 +9,9 @@ from .node import Node
     2) Last sibling, izsauc SearchForOptimalActions parso parent node
     3) Strupceļa node, izsauc SearchForOptimalActions parso sibling node
 
+    
+
+
 """
 
 class Computer:
@@ -16,42 +19,55 @@ class Computer:
     def __init__(self):
         
         self.RootGameStateNode:Node = None
-    
-    def SearchForOptimalActions(self,ProcessableNode:Node,maxLevel:int): 
-        
+        self.ComputerP1:bool = True
 
+
+
+
+    def CreateTree(self,ProcessableNode:Node,maxLevel:int): 
+        
         if (self.CheckIfEnd()):
             self.UpdateNodeDistances()
         if(len(ProcessableNode.ChildNodes)==0):
             ProcessableNode.ChildNodes = self.CreateNextNodes() # TODO: implementēt child nodes
-        if(len(ProcessableNode.ChildNodes)!=0 and ProcessableNode.level<maxLevel):
-            self.SearchForOptimalActions(ProcessableNode.ChildNodes[self.GetBestAction(ProcessableNode.ChildNodes)])
+        if(ProcessableNode.Level<maxLevel):
+            for i in range(len(ProcessableNode.ChildNodes)):
+                if(ProcessableNode.ChildNodes[i].Checked==False):
+                    ProcessableNode.ChildNodes[i].Checked==True
+                    self.CreateTree(ProcessableNode.ChildNodes[i])
+                    return
+        if(ProcessableNode.ID>=len(ProcessableNode.ParentNode.ChildNodes-1)):
+            self.CreateTree(self,ProcessableNode.ParentNode)
             return
-        if(ProcessableNode.ID>=len(ProcessableNode.ParentNode.ChildNodes-1) and ProcessableNode.level<maxLevel):
-            self.SearchForOptimalActions(self,ProcessableNode.ParentNode)
-            return
-        else:
-            self.SearchForOptimalActions(self,ProcessableNode.ParentNode.ChildNodes[ProcessableNode.ID+1]) 
+        elif(ProcessableNode.Level<maxLevel and ProcessableNode.Level < maxLevel):
+            self.CreateTree(self,ProcessableNode.ParentNode.ChildNodes[ProcessableNode.ID+1]) 
             return
         
+            
+                    
+                
+ 
 
-    def GetBestAction(NextNodes:list[Node]): # implementēt heiristisku pārmeklēšanu, atšķirt datora un pretinieka gājienus
+    def GetBestAction(NextNodes:list[Node]): # implementēt heiristisku analīzi, atšķirt datora un pretinieka gājienus
         # Izvērtē cik tālu ir end, cik liela ir punktu atšķirība pēc gājiena
+
         id
         return id   
         
 
     def CheckIfEnd(self, CheckableNode:Node):
         if(len(CheckableNode.GameState.NumberRow)==1):
-            return True         
-        
-
+            if(self.ComputerP1==True and CheckableNode.GameState.P1>CheckableNode.GameState.P2):
+                return True   
+            elif(self.ComputerP1==False and CheckableNode.GameState.P1<CheckableNode.GameState.P2):
+                return True
+            
 
     def CreateNextNodes(): # Izveidot nākamos game state nodes
         NextNodes = []
         return NextNodes
 
-    def UpdateNodeDistances(self,end_node:Node): # Iespējams jāsavieno ar GetBestAction
+    def UpdateNodeDistances(self,end_node:Node): # Iespējams jāsavieno ar GetBestGameStateNode
         
         CurrentNode = end_node
        
@@ -63,8 +79,8 @@ class Computer:
                 break
 
     def Act(self,maxLevel:int):
-        self.SearchForOptimalAction(self.RootGameStateNode,self.RootGameStateNode.level+maxLevel)
-
+        self.SearchForEnds(self.RootGameStateNode,self.RootGameStateNode.level+maxLevel)
+        self.GetBestAction()
 
 
 

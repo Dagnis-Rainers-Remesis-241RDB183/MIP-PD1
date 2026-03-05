@@ -5,7 +5,7 @@ class Node:
         self.ParentNode:Node = None
         self.GameState:GameState = None
         self.ID:int = None
-        self.ChildNodes[Node] = []
+        self.ChildNodes:list[Node] = []
         self.DistanceFromEnd = float('inf')
-        self.level:int = 0
-        self.score:int = 0
+        self.Level:int = 0
+        self.Checked:bool = False
