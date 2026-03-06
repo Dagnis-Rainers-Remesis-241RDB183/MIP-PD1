@@ -1,0 +1,7 @@
+[tool.basedpyright]
+ reportWildcardImportFromLibrary = false
+ reportMissingTypeStubs = false
+ reportUnknownMemberType = false
+
+ [tool.ruff.lint.per-file-ignores]
+ "main.py" = ["F403", "F405"]
