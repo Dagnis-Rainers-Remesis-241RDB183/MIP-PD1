@@ -24,11 +24,9 @@ class Game:
 
     def move_left(self) -> None:
         self.selection = max(0, self.selection - 1)
-        print(self.selection)
 
     def move_right(self) -> None:
         self.selection = min(len(self.numbers) - 2, self.selection + 1)
-        print(self.selection)
 
     def select(self) -> None:
         _a = self.numbers.pop(self.selection)
