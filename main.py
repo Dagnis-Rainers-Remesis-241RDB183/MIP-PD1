@@ -9,7 +9,7 @@ from src.gui import Gui
 
 async def main() -> None:
     game = Game()
-    gui = Gui()
+    gui = Gui(game)
 
     while not window_should_close():
         gui.render(game)

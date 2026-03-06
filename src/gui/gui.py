@@ -9,7 +9,7 @@ class Gui:
     selectionTime: float
     selectionPosition: float
 
-    def __init__(self) -> None:
+    def __init__(self, game: Game) -> None:
         init_window(config.WINDOW_WIDTH, config.WINDOW_HEIGHT, "MIP-PD1")
         gui_load_style("assets/theme/style_bluish.rgs")
         gui_set_style(0, 16, gui_get_font().baseSize * 2)
@@ -17,7 +17,9 @@ class Gui:
 
         self.time = 0.0
         self.selectionTime = 0.0
-        self.selectionPosition = 0.0
+        self.selectionPosition = (
+            config.WINDOW_WIDTH - len(game.numbers) * config.NUMBER_PADDING
+        ) / 2
 
     def render(self, game: Game) -> None:
         self.time += get_frame_time()
