@@ -11,7 +11,6 @@ from .node import Node
 
     
 
-
 """
 
 class Computer:
@@ -26,31 +25,32 @@ class Computer:
 
     def CreateTree(self,ProcessableNode:Node,Level:int): 
         
-        if (self.CheckIfEnd()):
+        if (self.CheckIfEnd(ProcessableNode)):
             self.UpdateNodeDistances(ProcessableNode)
+            return
         if(len(ProcessableNode.ChildNodes)==0):
             ProcessableNode.ChildNodes = self.CreateNextNodes() # TODO: implementēt child nodes
         if(Level<self.MaxLevel):
             for i in range(len(ProcessableNode.ChildNodes)):
                 if(ProcessableNode.ChildNodes[i].Checked==False):
-                    ProcessableNode.ChildNodes[i].Checked==True
-                    self.CreateTree(self,ProcessableNode.ChildNodes[i],Level+1)
+                    ProcessableNode.ChildNodes[i].Checked=True
+                    self.CreateTree(ProcessableNode.ChildNodes[i],Level+1)
                     return
-        if(ProcessableNode.ID>=len(ProcessableNode.ParentNode.ChildNodes-1)):
-            self.CreateTree(self,ProcessableNode.ParentNode,Level-1)
+        if(ProcessableNode.ID>=len(ProcessableNode.ParentNode.ChildNodes)-1):
+            self.CreateTree(ProcessableNode.ParentNode,Level-1)
             return
         elif(Level < self.MaxLevel):
-            self.CreateTree(self,ProcessableNode.ParentNode.ChildNodes[ProcessableNode.ID+1],Level) 
+            self.CreateTree(ProcessableNode.ParentNode.ChildNodes[ProcessableNode.ID+1],Level) 
             return
         
-            
+
                     
                 
  
 
-    def GetBestAction(NextNodes:list[Node]): # implementēt heiristisku analīzi, atšķirt datora un pretinieka gājienus
+    def GetBestAction(self,NextNodes:list[Node]): # implementēt heiristisku analīzi, atšķirt datora un pretinieka gājienus
         # Izvērtē cik tālu ir end, cik liela ir punktu atšķirība pēc gājiena
-
+        # 0 - 0 | 1- 0 0-1 0-0 , 
         id
         return id   
         
@@ -63,7 +63,7 @@ class Computer:
                 return True
             
 
-    def CreateNextNodes(): # Izveidot nākamos game state nodes
+    def CreateNextNodes(self): # Izveidot nākamos game state nodes
         NextNodes = []
         return NextNodes
 
@@ -79,7 +79,7 @@ class Computer:
                 break
 
     def Act(self,maxLevel:int):
-        self.SearchForEnds(self.RootGameStateNode,self.RootGameStateNode.level+maxLevel)
+        self.CreateTree(self.RootGameStateNode,self.RootGameStateNode.level+maxLevel)
         self.GetBestAction()
 
 
