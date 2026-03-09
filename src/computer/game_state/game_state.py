@@ -1,8 +1,8 @@
 class GameState:
-    def __init__(self,Number_row=[]):
+    def __init__(self,NumberRow=[]):
         self.P1:int = 0
         self.P2:int = 0
-        self.NumberRow[int] = Number_row
+        self.number_row:list[int] = NumberRow
         
         
 
