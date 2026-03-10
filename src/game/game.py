@@ -104,7 +104,7 @@ class Game:
         sum = a + b
 
         if sum > 6:
+            self._add_point()
             sum -= 6
 
         self.numbers.insert(self.selection, sum)
-        self._add_point()
