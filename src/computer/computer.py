@@ -1,5 +1,5 @@
 from .node import Node  
-
+from .game_state import GameState
 
 class Computer:
     
@@ -10,16 +10,17 @@ class Computer:
         self.max_level:int = 0
 
 
-
+    #Uzlabota CreatTree loģika
     def CreateTree(self,ProcessableNode:Node,Level:int): 
-        if (len(ProcessableNode.child_nodes)==0 or Level > self.max_level):
+        if Level > self.max_level or self.CheckIfEnd(ProcessableNode):
             return
+        if(len(ProcessableNode.child_nodes)==0):
+                ProcessableNode.child_nodes=self.CreateNextNodes(ProcessableNode)
         for i in range(len(ProcessableNode.child_nodes)):
             ChildNode:Node = ProcessableNode.child_nodes[i]
             if(self.CheckIfEnd(ChildNode)):
                 self.UpdateNodeDistances(ProcessableNode)
-            if(len(ChildNode.child_nodes)==0):
-                ChildNode.child_nodes=self.CreateNextNodes(ChildNode)
+            
             self.CreateTree(ChildNode,Level+1)
 
                     
@@ -40,9 +41,57 @@ class Computer:
 
     def CreateNextNodes(self,ParentNode:Node): # Izveidot nākamos game state nodes
         NextNodes:list[Node] = []
+        
+        current_state = ParentNode.game_state
+        current_row = current_state.number_row
+        current_distance= len(current_row)
+
+        root_distance = len(self.root_game_state_node.game_state.number_row)
+        turns_played = root_distance - current_distance
+        P1_turn = (turns_played % 2 == 0)
+
+        for i in range(0, current_distance-1, 2):
+            a = current_row[i]
+            b = current_row[i+1]
+            sum = a + b
+
+            add_points = 0
+            if sum > 6:
+                add_points = 1
+                sum -= 6
+
+            next_row = current_row[:i] + [sum] + current_row[i+2:]
+
+            new_state = GameState(next_row, current_state.P1, current_state.P2)
+
+            if P1_turn:
+                new_state.P1 += add_points
+            else:
+                new_state.P2 += add_points
+
+            new_node = Node()
+            new_node.game_state = new_state
+            NextNodes.append(new_node)
+
+        if current_distance % 2 != 0:
+            new_node = current_row[:-1]
+
+            new_state = GameState(new_node, current_state.P1, current_state.P2)
+
+            if P1_turn:
+                new_state.P2 -= 1
+            else:                
+                new_state.P1 -= 1
+        
+            new_node = Node()
+            new_node.game_state = new_state
+            NextNodes.append(new_node)
+
         for cn in NextNodes:
             cn.parent_node = ParentNode
         return NextNodes
+    
+    
 
     def UpdateNodeDistances(self,end_node:Node): # Iespējams jāsavieno ar GetBestGameStateNode
         
