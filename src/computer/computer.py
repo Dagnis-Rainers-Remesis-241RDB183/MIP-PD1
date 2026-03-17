@@ -1,14 +1,15 @@
 from .node import Node  
 from .game_state import GameState
+import json
 
 class Computer:
     
     def __init__(self):
         
-        self.root_game_state_node:Node = None
+        self.root_game_state_node:Node = Node()
         self.computer_P1:bool = True
         self.max_level:int = 0
-
+        self.tree:dict = {}
 
     #Uzlabota CreatTree loģika
     def CreateTree(self,ProcessableNode:Node,Level:int): 
@@ -22,7 +23,6 @@ class Computer:
                 self.UpdateNodeDistances(ProcessableNode)
             
             self.CreateTree(ChildNode,Level+1)
-
                     
     def GetBestAction(self,NextNodes:list[Node]): # implementēt heiristisku analīzi, atšķirt datora un pretinieka gājienus
         # Izvērtē cik tālu ir end, cik liela ir punktu atšķirība pēc gājiena
@@ -91,7 +91,30 @@ class Computer:
             cn.parent_node = ParentNode
         return NextNodes
     
+    def PrintTree(self):
+        json_tree =  json.dumps(self.tree,indent=4)
     
+        with open("tree.json","w") as f:
+            f.write(json_tree)
+
+    def BuildJsonTree(self,ParentNode:Node,ParentDict:dict,level:int):
+        if (level>=self.max_level):
+            return
+        for i in range(len(ParentNode.child_nodes)):
+            SaveableNode:Node = ParentNode.child_nodes[i]
+            SaveableGameState:str = ""
+            if (self.computer_P1):
+                SaveableGameState+=str(SaveableNode.game_state.P1)+"_"
+                for num in SaveableNode.game_state.number_row:
+                    SaveableGameState+=str(num)
+                SaveableGameState+="_"+str(SaveableNode.game_state.P2)
+            else:
+                SaveableGameState+=str(SaveableNode.game_state.P2)+"_"
+                for num in SaveableNode.game_state.number_row:
+                    SaveableGameState+=str(num)
+                SaveableGameState+="_"+str(SaveableNode.game_state.P1)
+            ParentDict[SaveableGameState] = {}
+            self.BuildJsonTree(SaveableNode,ParentDict[SaveableGameState],level+1)
 
     def UpdateNodeDistances(self,end_node:Node): # Iespējams jāsavieno ar GetBestGameStateNode
         
