@@ -13,7 +13,7 @@ class Computer:
 
     #Uzlabota CreatTree loģika
     def CreateTree(self,ProcessableNode:Node,Level:int): 
-        if Level > self.max_level or self.CheckIfEnd(ProcessableNode):
+        if Level > self.max_level:
             return
         if(len(ProcessableNode.child_nodes)==0):
                 ProcessableNode.child_nodes=self.CreateNextNodes(ProcessableNode)
@@ -45,7 +45,8 @@ class Computer:
         current_state = ParentNode.game_state
         current_row = current_state.number_row
         current_distance= len(current_row)
-
+        if(current_distance==1):
+            return NextNodes
         root_distance = len(self.root_game_state_node.game_state.number_row)
         turns_played = root_distance - current_distance
         P1_turn = (turns_played % 2 == 0)

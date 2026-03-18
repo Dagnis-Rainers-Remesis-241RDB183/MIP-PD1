@@ -21,7 +21,7 @@ async def main() -> None:
     '''  
     comp = Computer()
     comp.max_level=5
-    comp.root_game_state_node.game_state.number_row = [1,3,5,2,6,3]
+    comp.root_game_state_node.game_state.number_row = [1,3,6,4,5,1]
     comp.CreateTree(comp.root_game_state_node,0)
     comp.BuildJsonTree(comp.root_game_state_node,comp.tree,0)
     comp.PrintTree()
