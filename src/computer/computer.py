@@ -4,25 +4,24 @@ import json
 
 class Computer:
     
-    def __init__(self):
+    def __init__(self,RootKey:str="0|123456|0"):
         
-        self.root_game_state_node:Node = Node()
+        self.root_game_state_node_key:str = RootKey
         self.computer_P1:bool = True
         self.max_level:int = 0
-        self.tree:dict = {}
+        self.tree:dict[str,Node] = {}
+        self.json_tree:dict = {}
 
     #Uzlabota CreatTree loģika
-    def CreateTree(self,ProcessableNode:Node,Level:int): 
+    def CreateTree(self,ProcessableNodeKey:str,Level:int): 
         if Level > self.max_level:
             return
-        if(len(ProcessableNode.child_nodes)==0):
-                ProcessableNode.child_nodes=self.CreateNextNodes(ProcessableNode)
-        for i in range(len(ProcessableNode.child_nodes)):
-            ChildNode:Node = ProcessableNode.child_nodes[i]
-            if(self.CheckIfEnd(ChildNode)):
-                self.UpdateNodeDistances(ProcessableNode)
-            
-            self.CreateTree(ChildNode,Level+1)
+        if(ProcessableNodeKey not in self.tree):
+            self.tree[ProcessableNodeKey] = Node()
+        if(len(self.tree[ProcessableNodeKey].child_nodes)==0):
+            self.tree[ProcessableNodeKey]=self.CreateNextNodes(ProcessableNodeKey)
+        for i in range(len(self.tree[ProcessableNodeKey].child_nodes)):
+            self.CreateTree(self.tree[ProcessableNodeKey].child_nodes[i],Level+1)
                     
     def GetBestAction(self,NextNodes:list[Node]): # implementēt heiristisku analīzi, atšķirt datora un pretinieka gājienus
         # Izvērtē cik tālu ir end, cik liela ir punktu atšķirība pēc gājiena
@@ -31,29 +30,37 @@ class Computer:
         return id   
         
 
-    def CheckIfEnd(self, CheckableNode:Node):
-        if(len(CheckableNode.game_state.number_row)==1):
-            if(self.computer_P1==True and CheckableNode.game_state.P1>CheckableNode.game_state.P2):
+    def CheckIfEnd(self, CheckableKey):
+        current_P1,current_row, current_P2 = self.extractFromGameState(CheckableKey)
+        if(len(current_row)==1):
+            if(self.computer_P1==True and current_P1>current_P2):
                 return True   
-            elif(self.computer_P1==False and CheckableNode.game_state.P1<CheckableNode.game_state.P2):
+            elif(self.computer_P1==False and current_P1<current_P2):
                 return True
             
 
-    def CreateNextNodes(self,ParentNode:Node): # Izveidot nākamos game state nodes
-        NextNodes:list[Node] = []
+    def extractFromGameState(self,Key:str):
+       
+
+        splitkey = Key.split('|')
+        return int(splitkey[0]),splitkey[1],int(splitkey[2])
+    
+    def CreateNextNodes(self,ParentNodeKey:str): # Izveidot nākamos game states
+        NextStates:Node = Node()
+        current_P1,current_row, current_P2 = self.extractFromGameState(ParentNodeKey)
         
-        current_state = ParentNode.game_state
-        current_row = current_state.number_row
         current_distance= len(current_row)
         if(current_distance==1):
-            return NextNodes
-        root_distance = len(self.root_game_state_node.game_state.number_row)
+            return NextStates
+        
+        p1,rootRow,p2 = self.extractFromGameState(self.root_game_state_node_key)
+        root_distance = len(rootRow)
         turns_played = root_distance - current_distance
         P1_turn = (turns_played % 2 == 0)
 
         for i in range(0, current_distance-1, 2):
-            a = current_row[i]
-            b = current_row[i+1]
+            a = int(current_row[i])
+            b = int(current_row[i+1])
             sum = a + b
 
             add_points = 0
@@ -61,64 +68,51 @@ class Computer:
                 add_points = 1
                 sum -= 6
 
-            next_row = current_row[:i] + [sum] + current_row[i+2:]
-
-            new_state = GameState(next_row, current_state.P1, current_state.P2)
-
+            next_row = current_row[:i] + str(sum) + current_row[i+2:]
             if P1_turn:
-                new_state.P1 += add_points
+                current_P1 += add_points
             else:
-                new_state.P2 += add_points
-
-            new_node = Node()
-            new_node.game_state = new_state
-            NextNodes.append(new_node)
+                current_P2 += add_points
+            new_state = GameState(next_row, current_P1, current_P2)
+            
+            NextStates.child_nodes.append(new_state.state)
+            self.tree[new_state.state]=Node()
 
         if current_distance % 2 != 0:
-            new_node = current_row[:-1]
+            new_row = current_row[:-1]
 
-            new_state = GameState(new_node, current_state.P1, current_state.P2)
+            
 
             if P1_turn:
-                new_state.P2 -= 1
+                current_P2 -= 1
             else:                
-                new_state.P1 -= 1
-        
-            new_node = Node()
-            new_node.game_state = new_state
-            NextNodes.append(new_node)
+                current_P1 -= 1
+            new_state = GameState(new_row, current_P1, current_P2)
 
-        for cn in NextNodes:
-            cn.parent_node = ParentNode
-        return NextNodes
+          
+            NextStates.child_nodes.append(new_state.state)
+            self.tree[new_state.state]=Node()
+
+        NextStates.parent_node=ParentNodeKey
+        return NextStates
     
     def PrintTree(self):
-        json_tree =  json.dumps(self.tree,indent=4)
-    
-        with open("tree.json","w") as f:
-            f.write(json_tree)
+        self.BuildJsonTree(self.root_game_state_node_key,self.json_tree)
 
-    def BuildJsonTree(self,ParentNode:Node,ParentDict:dict,level:int):
-        if (level>=self.max_level):
-            return
-        for i in range(len(ParentNode.child_nodes)):
-            SaveableNode:Node = ParentNode.child_nodes[i]
-            SaveableGameState:str = ""
-            if (self.computer_P1):
-                SaveableGameState+=str(SaveableNode.game_state.P1)+"_"
-                for num in SaveableNode.game_state.number_row:
-                    SaveableGameState+=str(num)
-                SaveableGameState+="_"+str(SaveableNode.game_state.P2)
-            else:
-                SaveableGameState+=str(SaveableNode.game_state.P2)+"_"
-                for num in SaveableNode.game_state.number_row:
-                    SaveableGameState+=str(num)
-                SaveableGameState+="_"+str(SaveableNode.game_state.P1)
-            ParentDict[SaveableGameState] = {}
-            self.BuildJsonTree(SaveableNode,ParentDict[SaveableGameState],level+1)
+        jt =  json.dumps(self.json_tree,indent=4)
+
+        with open("tree.json","w") as f:
+            f.write(jt)
+
+    def BuildJsonTree(self,ParentKey:str,UpperDict:dict):
+        
+        for key in self.tree[ParentKey].child_nodes:
+            UpperDict[key]={}
+            self.BuildJsonTree(key,UpperDict[key])
 
     def UpdateNodeDistances(self,end_node:Node): # Iespējams jāsavieno ar GetBestGameStateNode
-        
+        pass
+        """
         CurrentNode = end_node
        
         while CurrentNode.parent_node!=self.root_game_state_node:
@@ -127,8 +121,11 @@ class Computer:
                 CurrentNode = CurrentNode.parent_node
             else:
                 break
+        """
+        
 
     def Act(self,maxLevel:int):
+       
         self.CreateTree(self.root_game_state_node,self.root_game_state_node.level+maxLevel)
         self.GetBestAction(self.root_game_state_node.child_nodes)
 
