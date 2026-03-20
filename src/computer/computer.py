@@ -24,12 +24,38 @@ class Computer:
             
             self.CreateTree(ChildNode,Level+1)
                     
-    def GetBestAction(self,NextNodes:list[Node]): # implementēt heiristisku analīzi, atšķirt datora un pretinieka gājienus
-        # Izvērtē cik tālu ir end, cik liela ir punktu atšķirība pēc gājiena
-        # 0 - 0 | 1- 0 0-1 0-0 , 
-        id
-        return id   
-        
+      # Iterācija ar labvēlīgāko iznākumu          
+    def GetBestAction(self,NextNodes:list[Node]):
+        best_val = -float('inf')
+        id = 0
+
+        for i in range(len(NextNodes)):
+            child = NextNodes[i]
+            current_move_val = self.MinMax(child, False)
+
+            if current_move_val > best_val:
+                best_val = current_move_val
+                id = i
+
+        return id
+
+    # Izveidota HNF
+    def HeuristicFunction(self, node: Node) -> int:
+        if self.computer_P1:
+            computer_score = node.game_state.P1
+            player_score = node.game_state.P2
+        else:
+            computer_score = node.game_state.P2
+            player_score = node.game_state.P1
+
+        if len(node.game_state.number_row) <= 1:
+            if computer_score > player_score:
+                return 1
+            elif computer_score < player_score:
+                return -1
+
+        return computer_score - player_score
+    
 
     def CheckIfEnd(self, CheckableNode:Node):
         if(len(CheckableNode.game_state.number_row)==1):
@@ -39,7 +65,7 @@ class Computer:
                 return True
             
 
-    def CreateNextNodes(self,ParentNode:Node): # Izveidot nākamos game state nodes
+    def CreateNextNodes(self,ParentNode:Node): # Izveidot nākamos game state nodes, salabota loģika
         NextNodes:list[Node] = []
         
         current_state = ParentNode.game_state
@@ -75,9 +101,9 @@ class Computer:
             NextNodes.append(new_node)
 
         if current_distance % 2 != 0:
-            new_node = current_row[:-1]
+            new_row= current_row[:-1]
 
-            new_state = GameState(new_node, current_state.P1, current_state.P2)
+            new_state = GameState(new_row, current_state.P1, current_state.P2)
 
             if P1_turn:
                 new_state.P2 -= 1
@@ -91,6 +117,28 @@ class Computer:
         for cn in NextNodes:
             cn.parent_node = ParentNode
         return NextNodes
+    
+    # Izveidots MinMax algoritms
+    def MinMax(self, node: Node, maximizing: bool) -> int:
+    
+        if len(node.child_nodes) == 0 or len(node.game_state.number_row) <= 1:
+            return self.HeuristicFunction(node)
+        
+        if maximizing:
+            best_val = -float('inf')
+            for child in node.child_nodes:
+                val = self.MinMax(child, False)
+                best_val = max(best_val, val)
+            return best_val
+        else:
+            best_val = float('inf')
+            for child in node.child_nodes:
+                val = self.MinMax(child, True)
+                best_val = min(best_val, val)
+            return best_val
+
+
+
     
     def PrintTree(self):
         json_tree =  json.dumps(self.tree,indent=4)
