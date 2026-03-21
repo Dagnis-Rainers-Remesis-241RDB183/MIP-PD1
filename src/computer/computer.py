@@ -160,25 +160,6 @@ class Computer:
                     break
             return best_val
 
-    # Izveidots MinMax algoritms
-    def MinMax(self, node: Node, maximizing: bool) -> int:
-
-        if len(node.child_nodes) == 0 or len(node.game_state.number_row) <= 1:
-            return self.HeuristicFunction(node)
-
-        if maximizing:
-            best_val = -float("inf")
-            for child in node.child_nodes:
-                val = self.MinMax(child, False)
-                best_val = max(best_val, val)
-            return best_val
-        else:
-            best_val = float("inf")
-            for child in node.child_nodes:
-                val = self.MinMax(child, True)
-                best_val = min(best_val, val)
-            return best_val
-
     def PrintTree(self):
         self.BuildJsonTree(self.root_game_state_node_key, self.json_tree)
 
