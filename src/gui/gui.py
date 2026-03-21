@@ -8,9 +8,13 @@ from src.gui.style import Style
 
 class Gui:
     number_count: _cffi_backend.FFI.CData
-    number_edit: bool
     player_start: _cffi_backend.FFI.CData
+    level: _cffi_backend.FFI.CData
+    algorithm: _cffi_backend.FFI.CData
+    number_edit: bool
+    level_edit: bool
     time: float
+    animate_time: float
     selection_time: float
     selection_position: float
     style: Style
@@ -20,9 +24,13 @@ class Gui:
         set_target_fps(60)
 
         self.number_count = ffi.new("int *", 15)
-        self.number_edit = False
         self.player_start = ffi.new("bool *", True)
+        self.level = ffi.new("int *", 1)
+        self.algorithm = ffi.new("bool *", False)
+        self.number_edit = False
+        self.level_edit = False
         self.time = 0.0
+        self.animate_time = 0.0
         self.selection_time = 0.0
         self.selection_position = (
             config.WINDOW_WIDTH - len(game.numbers) * config.NUMBER_PADDING
@@ -47,6 +55,13 @@ class Gui:
         end_drawing()
 
     def _draw_active_screen(self, game: Game) -> None:
+
+        # update computer move
+        if self.time >= self.animate_time + 0.5:
+            self.animate_time = self.time
+            self.selection_time = self.time
+            game.animate_move()
+
         length = len(game.numbers)
 
         # draw_selection
@@ -87,6 +102,11 @@ class Gui:
         _ = gui_label(Rectangle(200, 300, 200, 50), f"Player : {game.player_score}")
         _ = gui_label(Rectangle(800, 300, 200, 50), f"Computer : {game.computer_score}")
 
+        if game.turn % 2 == 0 and not game.player_start:
+            return
+        elif game.turn % 2 == 1 and game.player_start:
+            return
+
         # draw_controls
         if gui_button(Rectangle(config.WINDOW_WIDTH / 2 - 160, 300, 50, 50), "#118#"):
             self.selection_time = self.time
@@ -98,7 +118,33 @@ class Gui:
             game.select()
 
     def _draw_complete_screen(self, game: Game) -> None:
-        pass
+        if game.player_score > game.computer_score:
+            draw_text_ex(
+                gui_get_font(),
+                "You win!",
+                Vector2(config.WINDOW_WIDTH / 2 - 75, 200),
+                config.FONTSIZE,
+                0,
+                self.style.TEXT_COLOR_PRESSED,
+            )
+        elif game.player_score == game.computer_score:
+            draw_text_ex(
+                gui_get_font(),
+                "Draw.",
+                Vector2(config.WINDOW_WIDTH / 2 - 75, 200),
+                config.FONTSIZE,
+                0,
+                self.style.TEXT_COLOR_PRESSED,
+            )
+        else:
+            draw_text_ex(
+                gui_get_font(),
+                "You lose :(",
+                Vector2(config.WINDOW_WIDTH / 2 - 75, 200),
+                config.FONTSIZE,
+                0,
+                self.style.TEXT_COLOR_PRESSED,
+            )
 
     def _draw_start_screen(self, game: Game) -> None:
         draw_text_ex(
@@ -112,7 +158,7 @@ class Gui:
 
         if gui_spinner(
             Rectangle(config.WINDOW_WIDTH / 2 - 200, 270, 400, 50),
-            "",
+            "Numbers",
             self.number_count,
             15,
             25,
@@ -120,11 +166,32 @@ class Gui:
         ):
             self.number_edit = not self.number_edit
 
-        if gui_button(Rectangle(config.WINDOW_WIDTH / 2 - 200, 340, 400, 50), "Play"):
-            game.start(int(self.number_count[0]), bool(self.player_start[0]))
+        if gui_spinner(
+            Rectangle(config.WINDOW_WIDTH / 2 - 200, 340, 400, 50),
+            "Level",
+            self.level,
+            1,
+            10,
+            self.level_edit,
+        ):
+            self.level_edit = not self.level_edit
+
+        if gui_button(Rectangle(config.WINDOW_WIDTH / 2 - 200, 410, 400, 50), "Play"):
+            game.start(
+                int(self.number_count[0]),
+                int(self.level[0]),
+                bool(self.player_start[0]),
+                bool(self.algorithm[0]),
+            )
 
         _ = gui_check_box(
-            Rectangle(config.WINDOW_WIDTH / 2 - 200, 410, 25, 25),
+            Rectangle(config.WINDOW_WIDTH / 2 - 175, 480, 25, 25),
             "Start first",
             self.player_start,
+        )
+
+        _ = gui_check_box(
+            Rectangle(config.WINDOW_WIDTH / 2 + 25, 480, 25, 25),
+            "Alfa-beta" if bool(self.algorithm[0]) else "Min-max",
+            self.algorithm,
         )

@@ -2,6 +2,8 @@
  reportWildcardImportFromLibrary = false
  reportMissingTypeStubs = false
  reportUnknownMemberType = false
+ reportExplicitAny = "none"
+ reportAny = false
 
  [tool.ruff.lint.per-file-ignores]
  "main.py" = ["F403", "F405"]
