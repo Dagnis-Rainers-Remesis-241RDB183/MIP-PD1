@@ -1,7 +1,9 @@
-from ..game_state import GameState 
-
 class Node:
-    def __init__(self):
-        
-        self.child_nodes:list[str] = []
-        self.parent_node:str = ""
+    children: list[str]
+    parent: str | None
+    selection: int
+
+    def __init__(self, parent: str | None = None, selection: int = 0):
+        self.children = []
+        self.parent = parent
+        self.selection = selection
