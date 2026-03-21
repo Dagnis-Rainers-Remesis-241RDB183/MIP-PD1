@@ -23,11 +23,38 @@ class Computer:
         for i in range(len(self.tree[ProcessableNodeKey].child_nodes)):
             self.CreateTree(self.tree[ProcessableNodeKey].child_nodes[i],Level+1)
                     
-    def GetBestAction(self,NextNodes:list[Node]): # implementēt heiristisku analīzi, atšķirt datora un pretinieka gājienus
-        # Izvērtē cik tālu ir end, cik liela ir punktu atšķirība pēc gājiena
-        # 0 - 0 | 1- 0 0-1 0-0 , 
-        id
-        return id   
+    def GetBestAction(self,NextNodes:Node):
+        best_val = -float('inf')
+        id = 0
+
+        for i in range(len(NextNodes.child_nodes)):
+            child = NextNodes[i]
+           
+            current_move_val = self.MinMax(child, False)
+
+            if current_move_val > best_val:
+                best_val = current_move_val
+                id = i
+
+        return id
+
+    # Izveidota HNF
+    def HeuristicFunction(self, key:str) -> int:
+        p1,numberRow,p2 = self.extractFromGameState(key)
+        if self.computer_P1:
+            computer_score = p1
+            player_score = p2
+        else:
+            computer_score = p2
+            player_score = p1
+
+        if len(numberRow) <= 1:
+            if computer_score > player_score:
+                return 1
+            elif computer_score < player_score:
+                return -1
+
+        return computer_score - player_score 
         
 
     def CheckIfEnd(self, CheckableKey):
@@ -40,7 +67,6 @@ class Computer:
             
 
     def extractFromGameState(self,Key:str):
-       
 
         splitkey = Key.split('|')
         return int(splitkey[0]),splitkey[1],int(splitkey[2])
@@ -96,10 +122,54 @@ class Computer:
         NextStates.parent_node=ParentNodeKey
         return NextStates
     
+    def MinMax(self, key:str, maximizing: bool) -> int:
+        _,numberRow,_ = self.extractFromGameState(key)
+        if len(self.tree[key].child_nodes) == 0 or len(numberRow) <= 1:
+            return self.HeuristicFunction(key)
+        
+        if maximizing:
+            best_val = -float('inf')
+            for child in self.tree[key].child_nodes:
+                val = self.MinMax(child, False)
+                best_val = max(best_val, val)
+                
+            return best_val
+        else:
+            best_val = float('inf')
+            for child in self.tree[key].child_nodes:
+                val = self.MinMax(child, True)
+                best_val = min(best_val, val)
+                
+            return best_val
+        
+    def AlfaBeta(self, key:str, maximizing: bool) -> int:
+        _,numberRow,_ = self.extractFromGameState(key)
+        if len(self.tree[key].child_nodes) == 0 or len(numberRow) <= 1:
+            return self.HeuristicFunction(key)
+        
+        if maximizing:
+            best_val = -float('inf')
+            for child in self.tree[key].child_nodes:
+                val = self.MinMax(child, False)
+                best_val = max(best_val, val)
+                if (best_val>=1):
+                    break
+            return best_val
+        else:
+            best_val = float('inf')
+            for child in self.tree[key].child_nodes:
+                val = self.MinMax(child, True)
+                best_val = min(best_val, val)
+                if (best_val<=-1):
+                    break
+            return best_val
+   
+
+
     def PrintTree(self):
         self.BuildJsonTree(self.root_game_state_node_key,self.json_tree)
 
-        jt =  json.dumps(self.json_tree,indent=4)
+        jt = json.dumps(self.json_tree,indent=4)
 
         with open("tree.json","w") as f:
             f.write(jt)
