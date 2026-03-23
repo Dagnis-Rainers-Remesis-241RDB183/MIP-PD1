@@ -15,11 +15,11 @@ async def main() -> None:
         gui.render(game)
         await asyncio.sleep(0)
     close_window()
-
+    
 
 def run() -> None:
     asyncio.run(main())
 
 
 if __name__ == "__main__":
-    py_hot_reload.run_with_reloader(run)
+    run()
