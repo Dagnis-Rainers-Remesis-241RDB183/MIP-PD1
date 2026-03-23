@@ -74,18 +74,18 @@ class Game:
         self.selection = 0
         self.turn = 0
 
-    def _add_point(self) -> None:
+    def _add_points(self, sum: int) -> None:
         match self.turn % 2:
             case 0:
                 if self.player_start:
-                    self.computer_score += 1
+                    self.computer_score += sum
                 else:
-                    self.player_score += 1
+                    self.player_score += sum
             case 1:
                 if self.player_start:
-                    self.player_score += 1
+                    self.player_score += sum
                 else:
-                    self.computer_score += 1
+                    self.computer_score += sum
             case _:
                 pass
 
@@ -138,7 +138,7 @@ class Game:
         sum = a + b
 
         if sum > 6:
-            self._add_point()
             sum -= 6
+            self._add_points(sum)
 
         self.numbers.insert(self.selection, sum)

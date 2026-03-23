@@ -19,7 +19,7 @@ class Computer:
         self,
         computer_start: bool = False,
         numbers: list[int] = [],
-        level: int = 1,
+        max_level: int = 1,
         algorithm: bool = False,
     ):
         self.computer_start = computer_start
@@ -27,7 +27,7 @@ class Computer:
         self.thinking = False
         self.tree = {}
         self.json_tree = {}
-        self.max_level = level
+        self.max_level = max_level
         self.algorithm = algorithm
 
     # def cascade_delete(self, parent_node: Node) -> None:
@@ -40,7 +40,7 @@ class Computer:
     #     return
 
     def create_tree(self, game_state: str, level: int = 0) -> None:
-        if level > self.max_level:
+        if level + 1 > self.max_level:
             return
 
         node = self.tree.get(game_state)
@@ -79,9 +79,9 @@ class Computer:
             current_move_val = -float("inf")
 
             if self.algorithm:
-                current_move_val = self.alfa_beta(child, self.computer_start)
+                current_move_val = self.alfa_beta(child, True)
             else:
-                current_move_val = self.min_max(child, self.computer_start)
+                current_move_val = self.min_max(child, True)
 
             if current_move_val > best_val:
                 best_val = current_move_val
@@ -91,7 +91,9 @@ class Computer:
 
     # Izveidota HNF
     def heuristic_function(self, game_state: str) -> float:
-        p1, number_row, p2 = self.extract_game_state(game_state)
+        p1, _number_row, p2 = self.extract_game_state(game_state)
+        computer_score: int
+        player_score: int
 
         if self.computer_start:
             computer_score = p1
@@ -99,12 +101,6 @@ class Computer:
         else:
             computer_score = p2
             player_score = p1
-
-        if len(number_row) <= 1:
-            if computer_score > player_score:
-                return 1.0
-            elif computer_score < player_score:
-                return -1.0
 
         result = computer_score - player_score
 
@@ -151,8 +147,8 @@ class Computer:
 
             add_points = 0
             if sum > 6:
-                add_points = 1
                 sum -= 6
+                add_points = sum
 
             next_row = current_row[:i] + str(sum) + current_row[i + 2 :]
 
@@ -195,14 +191,12 @@ class Computer:
             for child in node.children:
                 val = self.min_max(child, False)
                 best_val = max(best_val, val)
-
             return best_val
         else:
             best_val = float("inf")
             for child in node.children:
                 val = self.min_max(child, True)
                 best_val = min(best_val, val)
-
             return best_val
 
     def alfa_beta(self, game_state: str, maximizing: bool) -> float:
@@ -243,7 +237,7 @@ class Computer:
 
     def build_json_tree(self, parent: str, upper_dict: dict[str, Any]):
         for child in self.tree[parent].children:
-            upper_dict[child] = {}
+            upper_dict[child] = {"minmax": self.min_max(parent, self.computer_start), "heuristic": self.heuristic_function(child)}
             self.build_json_tree(child, upper_dict[child])
 
     def UpdateNodeDistances(
@@ -265,5 +259,5 @@ class Computer:
         game_state = GameState.create(numbers, p1, p2)
         self.create_tree(game_state)
         action = self.get_best_action(game_state)
-
+        self.print_tree(game_state)
         return self.tree[action].selection
