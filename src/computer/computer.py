@@ -30,15 +30,6 @@ class Computer:
         self.max_level = max_level
         self.algorithm = algorithm
 
-    # def cascade_delete(self, parent_node: Node) -> None:
-    #     for child in parent_node.children:
-    #         child_node = self.tree[child]
-    #         self.cascade_delete(child_node)
-    #         del self.tree[child]
-    #     parent_node.children.clear()
-
-    #     return
-
     def create_tree(self, game_state: str, level: int = 0) -> None:
         if level + 1 > self.max_level:
             return
@@ -54,20 +45,6 @@ class Computer:
 
         for child in node.children:
             self.create_tree(child, level + 1)
-
-    # def clear_tree(self, game_state: str) -> None:
-    #     node: Node = self.tree[game_state]
-    #     if node.parent is None:
-    #         return
-
-    #     parent_node: Node = self.tree[node.parent]
-
-    #     for child in parent_node.children:
-    #         if child != game_state:
-    #             child_node: Node = self.tree[child]
-    #             self.cascade_delete(child_node)
-    #             del self.tree[child]
-    #             parent_node.children.remove(child)
 
     def get_best_action(self, game_state: str) -> str:
         node: Node = self.tree[game_state]
@@ -123,7 +100,7 @@ class Computer:
         result = game_state.split("|")
         return int(result[0]), result[1], int(result[2])
 
-    def create_nodes(self, game_state: str) -> None:  # Izveidot nākamos game states
+    def create_nodes(self, game_state: str) -> None:
         node: Node = self.tree[game_state]
 
         current_p1, current_row, current_p2 = self.extract_game_state(game_state)
@@ -237,23 +214,11 @@ class Computer:
 
     def build_json_tree(self, parent: str, upper_dict: dict[str, Any]):
         for child in self.tree[parent].children:
-            upper_dict[child] = {"minmax": self.min_max(parent, self.computer_start), "heuristic": self.heuristic_function(child)}
+            upper_dict[child] = {
+                "minmax": self.min_max(parent, self.computer_start),
+                "heuristic": self.heuristic_function(child),
+            }
             self.build_json_tree(child, upper_dict[child])
-
-    def UpdateNodeDistances(
-        self, _end_node: Node
-    ):  # Iespējams jāsavieno ar GetBestGameStateNode
-        pass
-        """
-        CurrentNode = end_node
-
-        while CurrentNode.parent!=self.root_game_state_node:
-            if(CurrentNode.distance_from_end+1<CurrentNode.parent.distance_from_end):
-                CurrentNode.parent.distance_from_end=CurrentNode.distance_from_end+1
-                CurrentNode = CurrentNode.parent
-            else:
-                break
-        """
 
     def action(self, numbers: list[int], p1: int = 0, p2: int = 0) -> int:
         game_state = GameState.create(numbers, p1, p2)
