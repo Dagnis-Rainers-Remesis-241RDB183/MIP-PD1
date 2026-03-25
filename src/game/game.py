@@ -36,11 +36,9 @@ class Game:
             self.selection = max(0, self.selection - 1 - len(self.numbers) % 2)
         else:
             self.selection = max(0, self.selection - 2)
-        print(self.computer_move, self.selection)
 
     def move_right(self) -> None:
         self.selection = min(len(self.numbers) - 1, self.selection + 2)
-        print(self.computer_move, self.selection)
 
     def reset(self) -> None:
         self.state = self.State.START
