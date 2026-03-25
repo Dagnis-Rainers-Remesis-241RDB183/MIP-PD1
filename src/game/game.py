@@ -32,12 +32,18 @@ class Game:
         self.turn = 0
 
     def move_left(self) -> None:
-        self.selection = max(0, self.selection - 2)
+        if self.selection == len(self.numbers) - 1:
+            self.selection = max(0, self.selection - 1 - len(self.numbers) % 2)
+        else:
+            self.selection = max(0, self.selection - 2)
+        print(self.computer_move, self.selection)
 
     def move_right(self) -> None:
-        self.selection = min(
-            len(self.numbers) - 2 + len(self.numbers) % 2, self.selection + 2
-        )
+        self.selection = min(len(self.numbers) - 1, self.selection + 2)
+        print(self.computer_move, self.selection)
+
+    def reset(self) -> None:
+        self.state = self.State.START
 
     def select(self) -> None:
         self.turn += 1
@@ -46,17 +52,16 @@ class Game:
         if len(self.numbers) == self.selection:
             self._remove_point()
 
-            self.selection = min(
-                len(self.numbers) - 2 + len(self.numbers) % 2, self.selection
-            )
+            self.selection = min(len(self.numbers) - 1, self.selection)
+
+            if len(self.numbers) == 1:
+                self.state = self.State.COMPLETE
             return
 
         b = self.numbers.pop(self.selection)
         self._replace(a, b)
 
-        self.selection = min(
-            len(self.numbers) - 2 + len(self.numbers) % 2, self.selection
-        )
+        self.selection = min(len(self.numbers) - 1, self.selection)
 
         if len(self.numbers) == 1:
             self.state = self.State.COMPLETE
