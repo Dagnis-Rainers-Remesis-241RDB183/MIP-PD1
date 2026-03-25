@@ -66,7 +66,7 @@ class Computer:
 
         return node.children[id]
 
-    # Izveidota HNF
+    # HNF
     def heuristic_function(self, game_state: str) -> float:
         p1, _number_row, p2 = self.extract_game_state(game_state)
         computer_score: int
@@ -139,21 +139,21 @@ class Computer:
             new_node = Node(game_state, i)
             self.tree[new_state] = new_node
 
-        if current_distance % 2 != 0:
-            p1 = current_p1
-            p2 = current_p2
+        # if current_distance % 2 != 0:
+        p1 = current_p1
+        p2 = current_p2
 
-            new_row = current_row[:-1]
+        new_row = current_row[:-1]
 
-            if p1_turn:
-                p2 -= 1
-            else:
-                p1 -= 1
+        if p1_turn:
+            p2 -= 1
+        else:
+            p1 -= 1
 
-            new_state = GameState.create(new_row, p1, p2)
-            node.children.append(new_state)
-            new_node = Node(game_state, current_distance - 1)
-            self.tree[new_state] = new_node
+        new_state = GameState.create(new_row, p1, p2)
+        node.children.append(new_state)
+        new_node = Node(game_state, current_distance - 1)
+        self.tree[new_state] = new_node
 
     def min_max(self, game_state: str, maximizing: bool) -> float:
         node: Node = self.tree[game_state]
@@ -224,5 +224,5 @@ class Computer:
         game_state = GameState.create(numbers, p1, p2)
         self.create_tree(game_state)
         action = self.get_best_action(game_state)
-        self.print_tree(game_state)
+
         return self.tree[action].selection

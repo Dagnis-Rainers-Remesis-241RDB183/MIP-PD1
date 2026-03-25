@@ -134,11 +134,16 @@ class Gui:
             draw_text_ex(
                 gui_get_font(),
                 "You lose :(",
-                Vector2(config.WINDOW_WIDTH / 2 - 75, 200),
+                Vector2(config.WINDOW_WIDTH / 2 - 100, 200),
                 config.FONTSIZE,
                 0,
                 self.style.TEXT_COLOR_PRESSED,
             )
+
+        if gui_button(
+            Rectangle(config.WINDOW_WIDTH / 2 - 200, 410, 400, 50), "Play again"
+        ):
+            game.reset()
 
     def _draw_start_screen(self, game: Game) -> None:
         draw_text_ex(
