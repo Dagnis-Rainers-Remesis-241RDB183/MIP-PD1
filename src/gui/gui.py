@@ -55,8 +55,6 @@ class Gui:
         end_drawing()
 
     def _draw_active_screen(self, game: Game) -> None:
-
-        # update computer move
         if self.time >= self.animate_time + 0.5:
             self.animate_time = self.time
             self.selection_time = self.time
@@ -64,7 +62,6 @@ class Gui:
 
         length = len(game.numbers)
 
-        # draw_selection
         window_offset = int((config.WINDOW_WIDTH - length * config.NUMBER_PADDING) / 2)
         selection_offset = game.selection * config.NUMBER_PADDING
         offset = window_offset + selection_offset
@@ -84,7 +81,6 @@ class Gui:
             self.style.TEXT_COLOR_PRESSED,
         )
 
-        # draw_numbers
         offset = int((config.WINDOW_WIDTH - length * config.NUMBER_PADDING) / 2)
 
         for i in range(length):
@@ -98,7 +94,6 @@ class Gui:
                 self.style.TEXT_COLOR_PRESSED,
             )
 
-        # draw_scores
         _ = gui_label(Rectangle(200, 300, 200, 50), f"Player : {game.player_score}")
         _ = gui_label(Rectangle(800, 300, 200, 50), f"Computer : {game.computer_score}")
 
@@ -107,7 +102,6 @@ class Gui:
         elif game.turn % 2 == 1 and game.player_start:
             return
 
-        # draw_controls
         if gui_button(Rectangle(config.WINDOW_WIDTH / 2 - 160, 300, 50, 50), "#118#"):
             self.selection_time = self.time
             game.move_left()
