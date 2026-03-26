@@ -186,22 +186,27 @@ class Computer:
 
         if maximizing:
             best_val = -float("inf")
+
             for child in node.children:
                 val = self.alfa_beta(child, False)
                 best_val = max(best_val, val)
-                if best_val >= 1:
-                    break
 
-            return best_val
+                if node.evaluation is not None and best_val >= node.evaluation:
+                    return node.evaluation
+
+            node.evaluation = best_val
+            return node.evaluation
         else:
             best_val = float("inf")
             for child in node.children:
                 val = self.alfa_beta(child, True)
                 best_val = min(best_val, val)
-                if best_val <= -1:
-                    break
 
-            return best_val
+                if node.evaluation is not None and best_val <= node.evaluation:
+                    return node.evaluation
+
+            node.evaluation = best_val
+            return node.evaluation
 
     def print_tree(self, game_state: str):
         self.json_tree = {game_state: {}}
@@ -224,5 +229,5 @@ class Computer:
         game_state = GameState.create(numbers, p1, p2)
         self.create_tree(game_state)
         action = self.get_best_action(game_state)
-        
+
         return self.tree[action].selection
