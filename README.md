@@ -14,12 +14,16 @@ Spēle beidzas, kad skaitļu virknē paliek viens skaitlis. Uzvar spēlētājs, 
 
 ### Nepieciešamie moduļi
 
+* cffi 2.0.0
 * raylib 5.5.0.3
+* typing_extensions 4.15.0
 
 ### Instalēšana
 
 ```
+pip install cffi==2.0.0
 pip install raylib==5.5.0.3 --break-system-packages
+pip install typing_extensions==4.15.0
 ```
 
 ### Programmas palaišana
