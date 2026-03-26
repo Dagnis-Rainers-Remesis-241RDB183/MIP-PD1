@@ -187,7 +187,7 @@ class Computer:
         if maximizing:
             best_val = -float("inf")
             for child in node.children:
-                val = self.min_max(child, False)
+                val = self.alfa_beta(child, False)
                 best_val = max(best_val, val)
                 if best_val >= 1:
                     break
@@ -196,7 +196,7 @@ class Computer:
         else:
             best_val = float("inf")
             for child in node.children:
-                val = self.min_max(child, True)
+                val = self.alfa_beta(child, True)
                 best_val = min(best_val, val)
                 if best_val <= -1:
                     break
@@ -224,5 +224,5 @@ class Computer:
         game_state = GameState.create(numbers, p1, p2)
         self.create_tree(game_state)
         action = self.get_best_action(game_state)
-
+        
         return self.tree[action].selection

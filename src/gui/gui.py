@@ -101,7 +101,7 @@ class Gui:
             return
         elif game.turn % 2 == 1 and game.player_start:
             return
-
+        
         if gui_button(Rectangle(config.WINDOW_WIDTH / 2 - 160, 300, 50, 50), "#118#"):
             self.selection_time = self.time
             game.move_left()
