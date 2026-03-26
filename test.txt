@@ -1,0 +1,314 @@
+-----Min-Max-----
+
+1. 
+
+AI level: 1
+AI move 1: generated vertices 9, evaluated vertices 8, time to figure out the move 0.023083ms
+AI move 2: generated vertices 8, evaluated vertices 7, time to figure out the move 0.012792ms
+AI move 3: generated vertices 7, evaluated vertices 6, time to figure out the move 0.011541ms
+AI move 4: generated vertices 6, evaluated vertices 5, time to figure out the move 0.011041ms
+AI move 5: generated vertices 5, evaluated vertices 4, time to figure out the move 0.009958ms
+AI move 6: generated vertices 4, evaluated vertices 3, time to figure out the move 0.010167ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.007125ms
+Winner: Player
+Total generated vertices: 42
+Total evaluated vertices: 35
+Average time to move: 0.012244ms
+
+2.
+
+AI level: 2
+AI move 1: generated vertices 63, evaluated vertices 56, time to figure out the move 0.076083ms
+AI move 2: generated vertices 48, evaluated vertices 42, time to figure out the move 0.049583ms
+AI move 3: generated vertices 36, evaluated vertices 30, time to figure out the move 0.036667ms
+AI move 4: generated vertices 26, evaluated vertices 20, time to figure out the move 0.027542ms
+AI move 5: generated vertices 17, evaluated vertices 12, time to figure out the move 0.020542ms
+AI move 6: generated vertices 10, evaluated vertices 6, time to figure out the move 0.015041ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.011792ms
+Winner: Player
+Total generated vertices: 203
+Total evaluated vertices: 168
+Average time to move: 0.033893ms
+
+3.
+
+AI level: 3
+AI move 1: generated vertices 399, evaluated vertices 392, time to figure out the move 0.371209ms
+AI move 2: generated vertices 246, evaluated vertices 252, time to figure out the move 0.241333ms
+AI move 3: generated vertices 134, evaluated vertices 150, time to figure out the move 0.147166ms
+AI move 4: generated vertices 82, evaluated vertices 80, time to figure out the move 0.089083ms
+AI move 5: generated vertices 42, evaluated vertices 36, time to figure out the move 0.047417ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.022875ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.006875ms
+Winner: Player
+Total generated vertices: 925
+Total evaluated vertices: 924
+Average time to move: 0.132280ms
+
+4.
+
+AI level: 4
+AI move 1: generated vertices 1859, evaluated vertices 2352, time to figure out the move 2.249542ms
+AI move 2: generated vertices 937, evaluated vertices 1260, time to figure out the move 1.207292ms
+AI move 3: generated vertices 385, evaluated vertices 600, time to figure out the move 0.600791ms
+AI move 4: generated vertices 194, evaluated vertices 240, time to figure out the move 0.263625ms
+AI move 5: generated vertices 74, evaluated vertices 72, time to figure out the move 0.096875ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.022208ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.006791ms
+Winner: Player
+Total generated vertices: 3471
+Total evaluated vertices: 4538
+Average time to move: 0.635303ms
+
+5.
+
+AI level: 5
+AI move 1: generated vertices 6644, evaluated vertices 14112, time to figure out the move 13.627458ms
+AI move 2: generated vertices 2826, evaluated vertices 6300, time to figure out the move 6.249708ms
+AI move 3: generated vertices 983, evaluated vertices 2400, time to figure out the move 2.456292ms
+AI move 4: generated vertices 365, evaluated vertices 720, time to figure out the move 0.783333ms
+AI move 5: generated vertices 113, evaluated vertices 144, time to figure out the move 0.191000ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.022917ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.006875ms
+Winner: Player
+Total generated vertices: 10953
+Total evaluated vertices: 23690
+Average time to move: 3.333940ms
+
+6.
+
+AI level: 6
+AI move 1: generated vertices 18749, evaluated vertices 70560, time to figure out the move 76.260375ms
+AI move 2: generated vertices 7300, evaluated vertices 25200, time to figure out the move 26.706083ms
+AI move 3: generated vertices 2493, evaluated vertices 7200, time to figure out the move 7.958792ms
+AI move 4: generated vertices 714, evaluated vertices 1440, time to figure out the move 1.843916ms
+AI move 5: generated vertices 143, evaluated vertices 144, time to figure out the move 0.190583ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.023500ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.007666ms
+Winner: Player
+Total generated vertices: 29421
+Total evaluated vertices: 104558
+Average time to move: 16.141559ms
+
+7.
+
+AI level: 7
+AI move 1: generated vertices 42797, evaluated vertices 352800, time to figure out the move 384.931834ms
+AI move 2: generated vertices 12330, evaluated vertices 100800, time to figure out the move 106.868875ms
+AI move 3: generated vertices 4074, evaluated vertices 21600, time to figure out the move 24.760458ms
+AI move 4: generated vertices 949, evaluated vertices 2880, time to figure out the move 3.794583ms
+AI move 5: generated vertices 143, evaluated vertices 144, time to figure out the move 0.196917ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.024291ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.007542ms
+Winner: Player
+Total generated vertices: 60315
+Total evaluated vertices: 478238
+Average time to move: 74.369214ms
+
+8.
+
+AI level: 8
+AI move 1: generated vertices 83102, evaluated vertices 1411200, time to figure out the move 1896.011000ms
+AI move 2: generated vertices 20697, evaluated vertices 302400, time to figure out the move 375.761125ms
+AI move 3: generated vertices 3954, evaluated vertices 43200, time to figure out the move 55.953125ms
+AI move 4: generated vertices 725, evaluated vertices 2880, time to figure out the move 3.733583ms
+AI move 5: generated vertices 113, evaluated vertices 144, time to figure out the move 0.188250ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.023583ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.006750ms
+Winner: Player
+Total generated vertices: 108613
+Total evaluated vertices: 1759838
+Average time to move: 333.096774ms
+
+9.
+
+AI level: 9
+AI move 1: generated vertices 110956, evaluated vertices 5644800, time to figure out the move 7772.845625ms
+AI move 2: generated vertices 22349, evaluated vertices 907200, time to figure out the move 1185.477083ms
+AI move 3: generated vertices 4516, evaluated vertices 86400, time to figure out the move 113.861667ms
+AI move 4: generated vertices 725, evaluated vertices 2880, time to figure out the move 3.780208ms
+AI move 5: generated vertices 113, evaluated vertices 144, time to figure out the move 0.191209ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.024333ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.008667ms
+Winner: Player
+Total generated vertices: 138681
+Total evaluated vertices: 6641438
+Average time to move: 1296.598399ms
+
+10.
+
+AI level: 10
+AI move 1: generated vertices 136734, evaluated vertices 16934400, time to figure out the move 27238.330208ms
+AI move 2: generated vertices 25061, evaluated vertices 1814400, time to figure out the move 1573.935500ms
+AI move 3: generated vertices 4516, evaluated vertices 86400, time to figure out the move 75.649333ms
+AI move 4: generated vertices 725, evaluated vertices 2880, time to figure out the move 2.267833ms
+AI move 5: generated vertices 113, evaluated vertices 144, time to figure out the move 0.115292ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.013917ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.004667ms
+Winner: Player
+Total generated vertices: 167171
+Total evaluated vertices: 18838238
+Average time to move: 4127.188107ms
+
+
+-----Alfa_Beta-----
+
+1.
+
+Numbers source: fixed
+AI level: 1
+AI move 1: generated vertices 9, evaluated vertices 8, time to figure out the move 0.021167ms
+AI move 2: generated vertices 8, evaluated vertices 7, time to figure out the move 0.013000ms
+AI move 3: generated vertices 7, evaluated vertices 6, time to figure out the move 0.010875ms
+AI move 4: generated vertices 6, evaluated vertices 5, time to figure out the move 0.011583ms
+AI move 5: generated vertices 5, evaluated vertices 4, time to figure out the move 0.016500ms
+AI move 6: generated vertices 4, evaluated vertices 3, time to figure out the move 0.009000ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.006500ms
+Winner: Player
+Total generated vertices: 42
+Total evaluated vertices: 35
+Average time to move: 0.012661ms
+
+2.
+
+Numbers source: fixed
+AI level: 2
+AI move 1: generated vertices 63, evaluated vertices 56, time to figure out the move 0.076875ms
+AI move 2: generated vertices 49, evaluated vertices 42, time to figure out the move 0.047834ms
+AI move 3: generated vertices 37, evaluated vertices 30, time to figure out the move 0.042000ms
+AI move 4: generated vertices 26, evaluated vertices 20, time to figure out the move 0.030750ms
+AI move 5: generated vertices 17, evaluated vertices 12, time to figure out the move 0.030917ms
+AI move 6: generated vertices 10, evaluated vertices 6, time to figure out the move 0.019167ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.012875ms
+Winner: Player
+Total generated vertices: 205
+Total evaluated vertices: 168
+Average time to move: 0.037203ms
+
+3.
+
+Numbers source: fixed
+AI level: 3
+AI move 1: generated vertices 399, evaluated vertices 381, time to figure out the move 0.369458ms
+AI move 2: generated vertices 259, evaluated vertices 247, time to figure out the move 0.237667ms
+AI move 3: generated vertices 142, evaluated vertices 150, time to figure out the move 0.178084ms
+AI move 4: generated vertices 82, evaluated vertices 80, time to figure out the move 0.118875ms
+AI move 5: generated vertices 42, evaluated vertices 36, time to figure out the move 0.055666ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.023334ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.006292ms
+Winner: Player
+Total generated vertices: 946
+Total evaluated vertices: 908
+Average time to move: 0.141339ms
+
+4.
+
+Numbers source: fixed
+AI level: 4
+AI move 1: generated vertices 1859, evaluated vertices 2115, time to figure out the move 2.095750ms
+AI move 2: generated vertices 993, evaluated vertices 1120, time to figure out the move 1.276500ms
+AI move 3: generated vertices 409, evaluated vertices 475, time to figure out the move 0.590417ms
+AI move 4: generated vertices 193, evaluated vertices 196, time to figure out the move 0.230042ms
+AI move 5: generated vertices 74, evaluated vertices 61, time to figure out the move 0.103375ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.022333ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.007500ms
+Winner: Player
+Total generated vertices: 3550
+Total evaluated vertices: 3981
+Average time to move: 0.617988ms
+
+5.
+
+Numbers source: fixed
+AI level: 5
+AI move 1: generated vertices 6916, evaluated vertices 10288, time to figure out the move 11.443416ms
+AI move 2: generated vertices 3004, evaluated vertices 4309, time to figure out the move 5.317750ms
+AI move 3: generated vertices 983, evaluated vertices 1368, time to figure out the move 1.831000ms
+AI move 4: generated vertices 365, evaluated vertices 439, time to figure out the move 0.558542ms
+AI move 5: generated vertices 113, evaluated vertices 102, time to figure out the move 0.184792ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.025958ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.006791ms
+Winner: Player
+Total generated vertices: 11403
+Total evaluated vertices: 16520
+Average time to move: 2.766893ms
+
+6.
+
+Numbers source: fixed
+AI level: 6
+AI move 1: generated vertices 19920, evaluated vertices 35994, time to figure out the move 57.909333ms
+AI move 2: generated vertices 6455, evaluated vertices 11310, time to figure out the move 13.983833ms
+AI move 3: generated vertices 2693, evaluated vertices 3851, time to figure out the move 5.123167ms
+AI move 4: generated vertices 753, evaluated vertices 901, time to figure out the move 1.309208ms
+AI move 5: generated vertices 142, evaluated vertices 119, time to figure out the move 0.198875ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.023958ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.007125ms
+Winner: Player
+Total generated vertices: 29985
+Total evaluated vertices: 52189
+Average time to move: 11.222214ms
+
+7.
+
+Numbers source: fixed
+AI level: 7
+AI move 1: generated vertices 42797, evaluated vertices 108401, time to figure out the move 207.475959ms
+AI move 2: generated vertices 12330, evaluated vertices 29750, time to figure out the move 54.708208ms
+AI move 3: generated vertices 4074, evaluated vertices 8730, time to figure out the move 16.133833ms
+AI move 4: generated vertices 949, evaluated vertices 1572, time to figure out the move 2.911042ms
+AI move 5: generated vertices 143, evaluated vertices 119, time to figure out the move 0.211042ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.031625ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.008042ms
+Winner: Player
+Total generated vertices: 60315
+Total evaluated vertices: 148586
+Average time to move: 40.211393ms
+
+8.
+
+Numbers source: fixed
+AI level: 8
+AI move 1: generated vertices 76229, evaluated vertices 259820, time to figure out the move 520.320125ms
+AI move 2: generated vertices 17553, evaluated vertices 53701, time to figure out the move 101.931084ms
+AI move 3: generated vertices 3954, evaluated vertices 10043, time to figure out the move 23.384500ms
+AI move 4: generated vertices 725, evaluated vertices 1171, time to figure out the move 2.293042ms
+AI move 5: generated vertices 113, evaluated vertices 102, time to figure out the move 0.161291ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.022958ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.007500ms
+Winner: Player
+Total generated vertices: 98596
+Total evaluated vertices: 324851
+Average time to move: 92.588643ms
+
+9.
+
+Numbers source: fixed
+AI level: 9
+AI move 1: generated vertices 110956, evaluated vertices 686001, time to figure out the move 1447.483042ms
+AI move 2: generated vertices 22349, evaluated vertices 117934, time to figure out the move 242.754250ms
+AI move 3: generated vertices 4516, evaluated vertices 17362, time to figure out the move 34.255083ms
+AI move 4: generated vertices 725, evaluated vertices 1171, time to figure out the move 2.269958ms
+AI move 5: generated vertices 113, evaluated vertices 102, time to figure out the move 0.163458ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.031667ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.006958ms
+Winner: Player
+Total generated vertices: 138681
+Total evaluated vertices: 822584
+Average time to move: 246.709202ms
+
+10.
+
+Numbers source: fixed
+AI level: 10
+AI move 1: generated vertices 136734, evaluated vertices 1515318, time to figure out the move 3806.754709ms
+AI move 2: generated vertices 26685, evaluated vertices 223509, time to figure out the move 561.639750ms
+AI move 3: generated vertices 5884, evaluated vertices 26323, time to figure out the move 55.647500ms
+AI move 4: generated vertices 949, evaluated vertices 1572, time to figure out the move 2.874125ms
+AI move 5: generated vertices 143, evaluated vertices 119, time to figure out the move 0.179666ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.031291ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.006666ms
+Winner: Player
+Total generated vertices: 170417
+Total evaluated vertices: 1766855
+Average time to move: 632.447672ms

@@ -1,0 +1,13 @@
+Numbers source: fixed
+AI level: 10
+AI move 1: generated vertices 136734, evaluated vertices 1515318, time to figure out the move 3806.754709ms
+AI move 2: generated vertices 26685, evaluated vertices 223509, time to figure out the move 561.639750ms
+AI move 3: generated vertices 5884, evaluated vertices 26323, time to figure out the move 55.647500ms
+AI move 4: generated vertices 949, evaluated vertices 1572, time to figure out the move 2.874125ms
+AI move 5: generated vertices 143, evaluated vertices 119, time to figure out the move 0.179666ms
+AI move 6: generated vertices 19, evaluated vertices 12, time to figure out the move 0.031291ms
+AI move 7: generated vertices 3, evaluated vertices 2, time to figure out the move 0.006666ms
+Winner: Player
+Total generated vertices: 170417
+Total evaluated vertices: 1766855
+Average time to move: 632.447672ms
