@@ -228,6 +228,10 @@ class Computer:
 
     def action(self, numbers: list[int], p1: int = 0, p2: int = 0) -> int:
         game_state = GameState.create(numbers, p1, p2)
+
+        if self.algorithm:
+            self.tree = {}
+
         self.create_tree(game_state)
         action = self.get_best_action(game_state)
 
